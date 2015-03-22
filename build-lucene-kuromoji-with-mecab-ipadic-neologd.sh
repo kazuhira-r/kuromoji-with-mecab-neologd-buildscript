@@ -3,6 +3,11 @@
 ########## Init  ##########
 WORK_DIR=`pwd`
 
+########## Proxy Settings ##########
+#export http_proxy=http://your.proxy-host:your.proxy-port
+#export https_proxy=http://your.proxy-host:your.proxy-port
+#export ANT_OPTS='-DproxyHost=your.proxy-host -DproxyPort=your.proxy-port'
+
 ########## Variables ##########
 ## MeCab
 MECAB_VERSION=mecab-0.996
