@@ -20,31 +20,39 @@ LUCENE_VERSION_TAG=lucene_solr_5_0_0
 
 ########## Main Process ##########
 if [ ! `which mecab` ]; then
-    echo '##### MeCab Install Local #####'
+    if [ ! -e ${MECAB_INSTALL_DIR}/bin/mecab ]; then
+        echo '##### MeCab Install Local #####'
 
-    wget https://mecab.googlecode.com/files/${MECAB_VERSION}.tar.gz
-    tar -zxf ${MECAB_VERSION}.tar.gz
-    cd ${MECAB_VERSION}
+        if [ ! -e ${MECAB_VERSION}.tar.gz ]; then
+            wget https://mecab.googlecode.com/files/${MECAB_VERSION}.tar.gz
+        fi
+        tar -zxf ${MECAB_VERSION}.tar.gz
+        cd ${MECAB_VERSION}
 
-    if [ ! -e ${MECAB_INSTALL_DIR} ]; then
-        mkdir -p ${MECAB_INSTALL_DIR}
+        if [ ! -e ${MECAB_INSTALL_DIR} ]; then
+            mkdir -p ${MECAB_INSTALL_DIR}
+        fi
+
+        ./configure --prefix=${MECAB_INSTALL_DIR}
+        make
+        make install
     fi
-
-    ./configure --prefix=${MECAB_INSTALL_DIR}
-    make
-    make install
 
     PATH=${MECAB_INSTALL_DIR}/bin:${PATH}
 
     cd ${WORK_DIR}
 
-    echo '##### MeCab IPA Dictionary Install Local #####'
-    wget https://mecab.googlecode.com/files/${MECAB_IPA_DICTIONARY_VERSION}.tar.gz
-    tar -zxf ${MECAB_IPA_DICTIONARY_VERSION}.tar.gz
-    cd ${MECAB_IPA_DICTIONARY_VERSION}
-    ./configure --with-charset=${DEFAULT_CHARSET}
-    make
-    make install
+    if [ ! -e ${MECAB_INSTALL_DIR}/bin/mecab ]; then
+        echo '##### MeCab IPA Dictionary Install Local #####'
+        if [ ! -e ${MECAB_IPA_DICTIONARY_VERSION}.tar.gz ]; then
+            wget https://mecab.googlecode.com/files/${MECAB_IPA_DICTIONARY_VERSION}.tar.gz
+        fi
+        tar -zxf ${MECAB_IPA_DICTIONARY_VERSION}.tar.gz
+        cd ${MECAB_IPA_DICTIONARY_VERSION}
+        ./configure --with-charset=${DEFAULT_CHARSET}
+        make
+        make install
+    fi
 fi
 
 cd ${WORK_DIR}
@@ -71,7 +79,7 @@ NEOLOGD_VERSION_DATE=`echo ${NEOLOGD_DIRNAME} | perl -wp -e 's!.+-(\d+)!$1!'`
 
 cd ${WORK_DIR}
 
-echo '##### Clone & Build Lucene #####'
+echo '##### Lucene Repository Clone #####'
 if [ ! -e lucene-solr ]; then
     git clone https://github.com/apache/lucene-solr.git
 else
@@ -95,21 +103,23 @@ cd analysis/kuromoji
 
 git checkout build.xml
 
-ant regenerate
-if [ $? -ne 0 ]; then
-    echo 'Standard IPA Dictionary Build Fail.'
-    exit 1
-fi
-
 echo '##### Build Lucene Kuromoji, with mecab-ipadic-NEologd #####'
+mkdir -p ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji
 cp -Rp ${NEOLOGD_BUILD_DIR} ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji
 
-perl -wp -i -e "s!mecab-ipadic-[.a-zA-Z0-9\-]+!${NEOLOGD_DIRNAME}!" build.xml
-perl -wp -i -e 's!name="dict.encoding" value="[^"]+"!name="dict.encoding" value="utf-8"!' build.xml
-perl -wp -i -e 's!, download-dict!!' build.xml
+if [ "${LUCENE_VERSION_TAG}" = "lucene_solr_5_0_0" ]; then
+    ## avoid https://issues.apache.org/jira/browse/LUCENE-6368
+    perl -wp -i -e 's!^    try \(OutputStream os = Files.newOutputStream\(path\)\) {!    try (OutputStream os = new BufferedOutputStream(Files.newOutputStream(path))) {!' ${LUCENE_SRC_DIR}/lucene/core/src/java/org/apache/lucene/util/fst/FST.java
+    perl -wp -i -e 's!^      save\(new OutputStreamDataOutput\(new BufferedOutputStream\(os\)\)\);!      save(new OutputStreamDataOutput(os));!' ${LUCENE_SRC_DIR}/lucene/core/src/java/org/apache/lucene/util/fst/FST.java
+fi
+
+perl -wp -i -e "s!^version.suffix=(.+)!version.suffix=${NEOLOGD_VERSION_DATE}-SNAPSHOT!" ${LUCENE_SRC_DIR}/lucene/version.properties
+perl -wp -i -e 's!<project name="analyzers-kuromoji"!<project name="analyzers-kuromoji-ipadic-neologd"!' build.xml
+#perl -wp -i -e "s!mecab-ipadic-[.a-zA-Z0-9\-]+!${NEOLOGD_DIRNAME}!" build.xml
+#perl -wp -i -e 's!name="dict.encoding" value="[^"]+"!name="dict.encoding" value="utf-8"!' build.xml
 perl -wp -i -e 's!maxmemory="[^"]+"!maxmemory="2g"!' build.xml
 
-ant regenerate
+ant -Dipadic.version=${NEOLOGD_DIRNAME} -Ddict.encoding=utf-8 regenerate
 if [ $? -ne 0 ]; then
     echo 'Dictionary Build Fail.'
     exit 1
@@ -122,9 +132,6 @@ if [ $? -ne 0 ]; then
 fi
 
 cd ${WORK_DIR}
-
-JAR_PATH=`ls -1 ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji/lucene-analyzers-kuromoji*`
-echo ${JAR_PATH} | perl -wp -e 's!((.+/)(lucene-analyzers-kuromoji)-([0-9.]+)-(.+))!mv $1 $2$3-ipadic-neologd-$4-NEOLOGD_VERSION_DATE-$5!' | perl -wp -e "s!NEOLOGD_VERSION_DATE!${NEOLOGD_VERSION_DATE}!" | perl -wn -e 'system($_)'
 
 cp ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji/lucene-analyzers-kuromoji* ./.
 
