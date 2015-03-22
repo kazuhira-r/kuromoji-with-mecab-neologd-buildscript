@@ -120,8 +120,6 @@ fi
 
 perl -wp -i -e "s!^version.suffix=(.+)!version.suffix=${NEOLOGD_VERSION_DATE}-SNAPSHOT!" ${LUCENE_SRC_DIR}/lucene/version.properties
 perl -wp -i -e 's!<project name="analyzers-kuromoji"!<project name="analyzers-kuromoji-ipadic-neologd"!' build.xml
-#perl -wp -i -e "s!mecab-ipadic-[.a-zA-Z0-9\-]+!${NEOLOGD_DIRNAME}!" build.xml
-#perl -wp -i -e 's!name="dict.encoding" value="[^"]+"!name="dict.encoding" value="utf-8"!' build.xml
 perl -wp -i -e 's!maxmemory="[^"]+"!maxmemory="2g"!' build.xml
 
 ant -Dipadic.version=${NEOLOGD_DIRNAME} -Ddict.encoding=utf-8 regenerate
