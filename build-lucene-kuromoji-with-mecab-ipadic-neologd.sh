@@ -41,13 +41,11 @@ if [ ! `which mecab` ]; then
         ./configure --prefix=${MECAB_INSTALL_DIR}
         make
         make install
-    fi
 
-    PATH=${MECAB_INSTALL_DIR}/bin:${PATH}
+        PATH=${MECAB_INSTALL_DIR}/bin:${PATH}
 
-    cd ${WORK_DIR}
+        cd ${WORK_DIR}
 
-    if [ ! -e ${MECAB_INSTALL_DIR}/bin/mecab ]; then
         echo '##### MeCab IPA Dictionary Install Local #####'
         if [ ! -e ${MECAB_IPA_DICTIONARY_VERSION}.tar.gz ]; then
             wget https://mecab.googlecode.com/files/${MECAB_IPA_DICTIONARY_VERSION}.tar.gz
@@ -57,6 +55,8 @@ if [ ! `which mecab` ]; then
         ./configure --with-charset=${DEFAULT_CHARSET}
         make
         make install
+    else
+        PATH=${MECAB_INSTALL_DIR}/bin:${PATH}
     fi
 fi
 
