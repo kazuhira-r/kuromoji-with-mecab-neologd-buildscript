@@ -113,7 +113,7 @@ mkdir -p ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji
 cp -Rp ${NEOLOGD_BUILD_DIR} ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji
 
 if [ "${LUCENE_VERSION_TAG}" = "lucene_solr_5_0_0" ]; then
-    ## avoid https://issues.apache.org/jira/browse/LUCENE-6368
+    echo '##### avoid https://issues.apache.org/jira/browse/LUCENE-6368 #####'
     perl -wp -i -e 's!^    try \(OutputStream os = Files.newOutputStream\(path\)\) {!    try (OutputStream os = new BufferedOutputStream(Files.newOutputStream(path))) {!' ${LUCENE_SRC_DIR}/lucene/core/src/java/org/apache/lucene/util/fst/FST.java
     perl -wp -i -e 's!^      save\(new OutputStreamDataOutput\(new BufferedOutputStream\(os\)\)\);!      save(new OutputStreamDataOutput(os));!' ${LUCENE_SRC_DIR}/lucene/core/src/java/org/apache/lucene/util/fst/FST.java
 fi
