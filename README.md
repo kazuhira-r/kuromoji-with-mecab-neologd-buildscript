@@ -64,3 +64,23 @@ drwxrwxr-x 8 xyz xyz     4096 Mar 24 00:57 mecab-ipadic-neologd
 `````
 
 In this case, it is "lucene-analyzers-kuromoji-ipadic-neologd-5.0.0-20150323-SNAPSHOT.jar" JAR file that was built.
+
+## Internal Process
+This script, perform the following processing.
+
+* Check the installation of MeCab, Installing MeCab in the current directory unless MeCab is not installed
+* Check the installation of MeCab, Installing mecab-ipadic in the current directory unless MeCab is not installed
+* Clone neologd
+* Generate a dictionary CSV(using libexec/make-mecab-ipadic-neologd.sh -L)
+* Clone Apache Lucene source code
+* Edit Kuromoji's build.xml
+* Build Kuromoji and dictionary with neologd
+* Copy JAR file to current directory
+
+## LICENSE
+Copyright &copy; 2015 kazuhira-r
+
+
+Licensed under the [Apache License, Version 2.0][Apache]
+ 
+[Apache]: http://www.apache.org/licenses/LICENSE-2.0
