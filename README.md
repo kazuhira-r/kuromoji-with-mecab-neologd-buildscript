@@ -18,10 +18,12 @@ Support only build using IPA dictionary.
 ### Requirements
 To use this script, you must install the following software.
 
+* [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [Apache Ant](http://ant.apache.org/)
 * C++ compiler
 * Git
 * Perl
+* wget
 * iconv
 * xz
 * [MeCab](http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html)(optional)
