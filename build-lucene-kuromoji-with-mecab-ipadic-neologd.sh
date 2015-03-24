@@ -20,6 +20,9 @@ DEFAULT_CHARSET=utf-8
 ## mecab-ipadic-NEologd
 MAX_BASEFORM_LENGTH=15
 
+## mecab-ipadic-NEologd Target Tag
+MECAB_IPADIC_NEOLOGD_TAG=master
+
 ## Lucene Target Tag
 LUCENE_VERSION_TAG=lucene_solr_5_0_0
 
@@ -65,15 +68,23 @@ cd ${WORK_DIR}
 echo '##### Download mecab-ipadic-NEologd #####'
 if [ ! -e mecab-ipadic-neologd ]; then
     git clone https://github.com/neologd/mecab-ipadic-neologd.git
+else
+    cd mecab-ipadic-neologd
+
+    if [ -d build ]; then
+        rm -rf build
+    fi
+
+    git checkout *
+    git checkout master
+    git pull
+    cd ..
 fi
 
 cd mecab-ipadic-neologd
 
-if [ -d build ]; then
-    rm -rf build
-fi
+git checkout ${MECAB_IPADIC_NEOLOGD_TAG}
 
-git pull
 libexec/make-mecab-ipadic-neologd.sh -L ${MAX_BASEFORM_LENGTH}
 
 DIR=`pwd`
