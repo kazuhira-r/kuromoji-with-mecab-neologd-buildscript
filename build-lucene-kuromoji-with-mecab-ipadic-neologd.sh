@@ -8,7 +8,7 @@ WORK_DIR=`pwd`
 #export https_proxy=http://your.proxy-host:your.proxy-port
 #export ANT_OPTS='-DproxyHost=your.proxy-host -DproxyPort=your.proxy-port'
 
-########## Variables ##########
+########## Default & Fixed Values ##########
 ## MeCab
 MECAB_VERSION=mecab-0.996
 MECAB_INSTALL_DIR=${WORK_DIR}/mecab
@@ -29,6 +29,23 @@ LUCENE_VERSION_TAG=lucene_solr_5_0_0
 ## Source Package
 DEFAULT_KUROMOJI_PACKAGE=org.apache.lucene.analysis.ja
 REDEFINED_KUROMOJI_PACKAGE=${DEFAULT_KUROMOJI_PACKAGE}
+
+########## Arguments Process ##########
+while getopts L:N:p: OPTION
+do
+    case $OPTION in
+        L)
+            LUCENE_VERSION_TAG=${OPTARG};;
+        N)
+            MECAB_IPADIC_NEOLOGD_TAG=${OPTARG};;
+        p)
+            REDEFINED_KUROMOJI_PACKAGE=${OPTARG};;
+        \?)
+            exit 1;;
+    esac
+done
+
+shift `expr "${OPTIND}" - 1`
 
 ########## Main Process ##########
 if [ ! `which mecab` ]; then
@@ -106,6 +123,8 @@ else
     cd lucene-solr
     git checkout *
     git checkout trunk
+    git reset --hard
+    git status -s | grep '^?' | perl -wn -e 's!^\?+ ([^ ]+)!git clean -df $1!; system("$_")'
     ant clean
     git pull
     cd ..
@@ -135,6 +154,7 @@ if [ "${LUCENE_VERSION_TAG}" = "lucene_solr_5_0_0" ]; then
 fi
 
 perl -wp -i -e "s!^version.suffix=(.+)!version.suffix=${NEOLOGD_VERSION_DATE}-SNAPSHOT!" ${LUCENE_SRC_DIR}/lucene/version.properties
+perl -wp -i -e "s!\"dev.version.suffix\" value=\"SNAPSHOT\"!\"dev.version.suffix\" value=\"${NEOLOGD_VERSION_DATE}-SNAPSHOT\"!" ${LUCENE_SRC_DIR}/lucene/common-build.xml
 perl -wp -i -e 's!<project name="analyzers-kuromoji"!<project name="analyzers-kuromoji-ipadic-neologd"!' build.xml
 perl -wp -i -e 's!maxmemory="[^"]+"!maxmemory="2g"!' build.xml
 
