@@ -24,7 +24,7 @@ MAX_BASEFORM_LENGTH=15
 MECAB_IPADIC_NEOLOGD_TAG=master
 
 ## Lucene Target Tag
-LUCENE_VERSION_TAG=lucene_solr_5_0_0
+LUCENE_VERSION_TAG=lucene_solr_5_1_0
 
 ## Source Package
 DEFAULT_KUROMOJI_PACKAGE=org.apache.lucene.analysis.ja
