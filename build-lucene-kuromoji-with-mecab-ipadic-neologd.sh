@@ -96,8 +96,9 @@ else
         rm -rf build
     fi
 
-    git checkout *
     git checkout master
+    git fetch origin
+    git reset --hard origin/master
     git pull
     cd ..
 fi
@@ -123,7 +124,8 @@ else
     cd lucene-solr
     git checkout *
     git checkout trunk
-    git reset --hard
+    git fetch origin
+    git reset --hard origin/trunk
     git status -s | grep '^?' | perl -wn -e 's!^\?+ ([^ ]+)!git clean -df $1!; system("$_")'
     ant clean
     git pull
