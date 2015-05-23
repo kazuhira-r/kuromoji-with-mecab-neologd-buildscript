@@ -8,6 +8,18 @@ WORK_DIR=`pwd`
 #export https_proxy=http://your.proxy-host:your.proxy-port
 #export ANT_OPTS='-DproxyHost=your.proxy-host -DproxyPort=your.proxy-port'
 
+########## Define Functions ##########
+logging() {
+    LABEL=$1
+    LEVEL=$2
+    MESSAGE=$3
+
+    TIME=`date +"%Y-%m-%d %H:%M:%S"`
+
+    echo "### [$TIME] [$LABEL] [$LEVEL] $MESSAGE"
+}
+
+
 ########## Default & Fixed Values ##########
 ## MeCab
 MECAB_VERSION=mecab-0.996
@@ -47,10 +59,12 @@ done
 
 shift `expr "${OPTIND}" - 1`
 
+logging main INFO 'START.'
+
 ########## Main Process ##########
 if [ ! `which mecab` ]; then
     if [ ! -e ${MECAB_INSTALL_DIR}/bin/mecab ]; then
-        echo '##### MeCab Install Local #####'
+        logging mecab INFO 'MeCab Install Local.'
 
         if [ ! -e ${MECAB_VERSION}.tar.gz ]; then
             wget https://mecab.googlecode.com/files/${MECAB_VERSION}.tar.gz
@@ -70,7 +84,7 @@ if [ ! `which mecab` ]; then
 
         cd ${WORK_DIR}
 
-        echo '##### MeCab IPA Dictionary Install Local #####'
+        logging mecab INFO 'MeCab IPA Dictionary Install Local.'
         if [ ! -e ${MECAB_IPA_DICTIONARY_VERSION}.tar.gz ]; then
             wget https://mecab.googlecode.com/files/${MECAB_IPA_DICTIONARY_VERSION}.tar.gz
         fi
@@ -86,7 +100,7 @@ fi
 
 cd ${WORK_DIR}
 
-echo '##### Download mecab-ipadic-NEologd #####'
+logging mecab-ipadic-NEologd INFO 'Download mecab-ipadic-NEologd.'
 if [ ! -e mecab-ipadic-neologd ]; then
     git clone https://github.com/neologd/mecab-ipadic-neologd.git
 else
@@ -145,12 +159,12 @@ KUROMOJI_SRC_DIR=`pwd`
 
 git checkout build.xml
 
-echo '##### Build Lucene Kuromoji, with mecab-ipadic-NEologd #####'
+logging lucene INFO 'Build Lucene Kuromoji, with mecab-ipadic-NEologd.'
 mkdir -p ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji
 cp -Rp ${NEOLOGD_BUILD_DIR} ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji
 
 if [ "${LUCENE_VERSION_TAG}" = "lucene_solr_5_0_0" ]; then
-    echo '##### avoid https://issues.apache.org/jira/browse/LUCENE-6368 #####'
+    loging lucene INFO 'avoid https://issues.apache.org/jira/browse/LUCENE-6368'
     perl -wp -i -e 's!^    try \(OutputStream os = Files.newOutputStream\(path\)\) {!    try (OutputStream os = new BufferedOutputStream(Files.newOutputStream(path))) {!' ${LUCENE_SRC_DIR}/lucene/core/src/java/org/apache/lucene/util/fst/FST.java
     perl -wp -i -e 's!^      save\(new OutputStreamDataOutput\(new BufferedOutputStream\(os\)\)\);!      save(new OutputStreamDataOutput(os));!' ${LUCENE_SRC_DIR}/lucene/core/src/java/org/apache/lucene/util/fst/FST.java
 fi
@@ -163,7 +177,7 @@ perl -wp -i -e 's!<project name="analyzers-kuromoji"!<project name="analyzers-ku
 perl -wp -i -e 's!maxmemory="[^"]+"!maxmemory="2g"!' build.xml
 
 if [ "${REDEFINED_KUROMOJI_PACKAGE}" != "${DEFAULT_KUROMOJI_PACKAGE}" ]; then
-    echo "##### redefine package [${DEFAULT_KUROMOJI_PACKAGE}] => [${REDEFINED_KUROMOJI_PACKAGE}] #####"
+    logging lucene INFO 'redefine package [${DEFAULT_KUROMOJI_PACKAGE}] => [${REDEFINED_KUROMOJI_PACKAGE}].'
 
     ORIGINAL_SRC_DIR=`echo ${DEFAULT_KUROMOJI_PACKAGE} | perl -wp -e 's!\.!/!g'`
     NEW_SRC_DIR=`echo ${REDEFINED_KUROMOJI_PACKAGE} | perl -wp -e 's!\.!/!g'`
@@ -188,13 +202,13 @@ fi
 
 ant -Dipadic.version=${NEOLOGD_DIRNAME} -Ddict.encoding=utf-8 regenerate
 if [ $? -ne 0 ]; then
-    echo 'Dictionary Build Fail.'
+    logging lucene ERROR 'Dictionary Build Fail.'
     exit 1
 fi
 
 ant jar-core
 if [ $? -ne 0 ]; then
-    echo 'Kuromoji Build Fail.'
+    logging lucene ERROR 'Kuromoji Build Fail.'
     exit 1
 fi
 
@@ -203,4 +217,6 @@ cd ${WORK_DIR}
 cp ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji/lucene-analyzers-kuromoji* ./.
 
 ls -l lucene-analyzers-kuromoji*
-echo '##### END #####'
+
+logging lucene INFO 'END.'
+
