@@ -1,6 +1,6 @@
 #!/bin/bash
 
-########## Init  ##########
+########## Init ##########
 WORK_DIR=`pwd`
 
 ########## Proxy Settings ##########
