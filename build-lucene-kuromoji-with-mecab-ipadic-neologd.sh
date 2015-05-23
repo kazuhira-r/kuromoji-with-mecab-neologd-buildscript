@@ -19,6 +19,9 @@ logging() {
     echo "### [$TIME] [$LABEL] [$LEVEL] $MESSAGE"
 }
 
+show() {
+    echo $1
+}
 
 ########## Default & Fixed Values ##########
 ## MeCab
@@ -60,6 +63,25 @@ done
 shift `expr "${OPTIND}" - 1`
 
 logging main INFO 'START.'
+
+cat <<EOF
+
+####################################################################
+applied build options.
+
+[MeCab Version]                ... ${MECAB_VERSION}
+[MeCab IPA Dictionary Version] ... ${MECAB_IPA_DICTIONARY_VERSION}
+[Dictionary CharacterSet]      ... ${DEFAULT_CHARSET}
+[mecab-ipadic-NEologd Tag]     ... ${MECAB_IPADIC_NEOLOGD_TAG}
+[Max BaseForm Length]          ... ${MAX_BASEFORM_LENGTH}
+[Lucene Tag]                   ... ${LUCENE_VERSION_TAG}
+[Kuromoji Package Name]        ... ${REDEFINED_KUROMOJI_PACKAGE}
+
+####################################################################
+
+EOF
+
+sleep 3
 
 ########## Main Process ##########
 if [ ! `which mecab` ]; then
@@ -218,5 +240,5 @@ cp ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji/lucene-analyzers-kuromoji* .
 
 ls -l lucene-analyzers-kuromoji*
 
-logging lucene INFO 'END.'
+logging main INFO 'END.'
 
