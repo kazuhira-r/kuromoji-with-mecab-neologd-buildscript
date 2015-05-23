@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ########## Init ##########
+SCRIPT_NAME=$0
 WORK_DIR=`pwd`
 
 ########## Proxy Settings ##########
@@ -17,6 +18,17 @@ logging() {
     TIME=`date +"%Y-%m-%d %H:%M:%S"`
 
     echo "### [$TIME] [$LABEL] [$LEVEL] $MESSAGE"
+}
+
+usage() {
+    cat <<EOF
+Usage: ${SCRIPT_NAME} [options...]
+  options:
+    -N ... mecab-ipadic-NEologd Tag, use git checkout argument. (default: ${MECAB_IPADIC_NEOLOGD_TAG})
+    -L ... Lucene Version Tag, use git checkout argument. (default: ${LUCENE_VERSION_TAG}) 
+    -p ... build Kuromoji Java Package. (default: ${DEFAULT_KUROMOJI_PACKAGE})
+    -h ... print this help.
+EOF
 }
 
 ########## Default & Fixed Values ##########
@@ -42,7 +54,7 @@ DEFAULT_KUROMOJI_PACKAGE=org.apache.lucene.analysis.ja
 REDEFINED_KUROMOJI_PACKAGE=${DEFAULT_KUROMOJI_PACKAGE}
 
 ########## Arguments Process ##########
-while getopts L:N:p: OPTION
+while getopts L:N:p:h OPTION
 do
     case $OPTION in
         L)
@@ -51,7 +63,11 @@ do
             MECAB_IPADIC_NEOLOGD_TAG=${OPTARG};;
         p)
             REDEFINED_KUROMOJI_PACKAGE=${OPTARG};;
+        h)
+            usage
+            exit 0;;
         \?)
+            usage
             exit 1;;
     esac
 done
@@ -70,7 +86,7 @@ applied build options.
 [Dictionary CharacterSet]       ... ${DEFAULT_CHARSET}
 [mecab-ipadic-NEologd Tag (-N)] ... ${MECAB_IPADIC_NEOLOGD_TAG}
 [Max BaseForm Length]           ... ${MAX_BASEFORM_LENGTH}
-[Lucene Tag (-L)]               ... ${LUCENE_VERSION_TAG}
+[Lucene Version Tag (-L)]       ... ${LUCENE_VERSION_TAG}
 [Kuromoji Package Name (-p)]    ... ${REDEFINED_KUROMOJI_PACKAGE}
 
 ####################################################################
