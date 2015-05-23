@@ -24,8 +24,8 @@ usage() {
     cat <<EOF
 Usage: ${SCRIPT_NAME} [options...]
   options:
-    -N ... mecab-ipadic-NEologd Tag, use git checkout argument. (default: ${MECAB_IPADIC_NEOLOGD_TAG})
-    -L ... Lucene Version Tag, use git checkout argument. (default: ${LUCENE_VERSION_TAG}) 
+    -N ... mecab-ipadic-NEologd Tag, use git checkout argument. (default: ${DEFAULT_MECAB_IPADIC_NEOLOGD_TAG})
+    -L ... Lucene Version Tag, use git checkout argument. (default: ${DEFAULT_LUCENE_VERSION_TAG}) 
     -p ... build Kuromoji Java Package. (default: ${DEFAULT_KUROMOJI_PACKAGE})
     -h ... print this help.
 EOF
@@ -44,10 +44,12 @@ DEFAULT_CHARSET=utf-8
 MAX_BASEFORM_LENGTH=15
 
 ## mecab-ipadic-NEologd Target Tag
-MECAB_IPADIC_NEOLOGD_TAG=master
+DEFAULT_MECAB_IPADIC_NEOLOGD_TAG=master
+MECAB_IPADIC_NEOLOGD_TAG=${DEFAULT_MECAB_IPADIC_NEOLOGD_TAG}
 
 ## Lucene Target Tag
-LUCENE_VERSION_TAG=lucene_solr_5_1_0
+DEFAULT_LUCENE_VERSION_TAG=lucene_solr_5_1_0
+LUCENE_VERSION_TAG=${DEFAULT_LUCENE_VERSION_TAG}
 
 ## Source Package
 DEFAULT_KUROMOJI_PACKAGE=org.apache.lucene.analysis.ja
