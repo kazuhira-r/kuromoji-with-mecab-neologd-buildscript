@@ -19,10 +19,6 @@ logging() {
     echo "### [$TIME] [$LABEL] [$LEVEL] $MESSAGE"
 }
 
-show() {
-    echo $1
-}
-
 ########## Default & Fixed Values ##########
 ## MeCab
 MECAB_VERSION=mecab-0.996
