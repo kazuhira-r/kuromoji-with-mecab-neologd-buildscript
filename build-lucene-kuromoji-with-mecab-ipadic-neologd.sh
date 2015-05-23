@@ -149,7 +149,7 @@ NEOLOGD_VERSION_DATE=`echo ${NEOLOGD_DIRNAME} | perl -wp -e 's!.+-(\d+)!$1!'`
 
 cd ${WORK_DIR}
 
-echo '##### Lucene Repository Clone #####'
+logging lucene INFO 'Lucene Repository Clone.'
 if [ ! -e lucene-solr ]; then
     git clone https://github.com/apache/lucene-solr.git
 else
