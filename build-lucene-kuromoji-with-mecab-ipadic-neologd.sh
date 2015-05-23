@@ -65,13 +65,13 @@ cat <<EOF
 ####################################################################
 applied build options.
 
-[MeCab Version]                ... ${MECAB_VERSION}
-[MeCab IPA Dictionary Version] ... ${MECAB_IPA_DICTIONARY_VERSION}
-[Dictionary CharacterSet]      ... ${DEFAULT_CHARSET}
-[mecab-ipadic-NEologd Tag]     ... ${MECAB_IPADIC_NEOLOGD_TAG}
-[Max BaseForm Length]          ... ${MAX_BASEFORM_LENGTH}
-[Lucene Tag]                   ... ${LUCENE_VERSION_TAG}
-[Kuromoji Package Name]        ... ${REDEFINED_KUROMOJI_PACKAGE}
+[MeCab Version]                 ... ${MECAB_VERSION}
+[MeCab IPA Dictionary Version]  ... ${MECAB_IPA_DICTIONARY_VERSION}
+[Dictionary CharacterSet]       ... ${DEFAULT_CHARSET}
+[mecab-ipadic-NEologd Tag (-N)] ... ${MECAB_IPADIC_NEOLOGD_TAG}
+[Max BaseForm Length]           ... ${MAX_BASEFORM_LENGTH}
+[Lucene Tag (-L)]               ... ${LUCENE_VERSION_TAG}
+[Kuromoji Package Name (-p)]    ... ${REDEFINED_KUROMOJI_PACKAGE}
 
 ####################################################################
 
