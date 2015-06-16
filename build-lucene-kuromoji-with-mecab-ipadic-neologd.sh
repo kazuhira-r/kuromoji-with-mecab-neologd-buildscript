@@ -157,6 +157,11 @@ cd mecab-ipadic-neologd
 
 git checkout ${MECAB_IPADIC_NEOLOGD_TAG}
 
+if [ $? -ne 0 ]; then
+    logging mecab-ipadic-NEologd ERROR "git checkout[${MECAB_IPADIC_NEOLOGD_TAG}] failed. Please re-run after execute 'rm -f mecab-ipadic-neologd'"
+    exit 1
+fi
+
 libexec/make-mecab-ipadic-neologd.sh -L ${MAX_BASEFORM_LENGTH}
 
 DIR=`pwd`
@@ -186,6 +191,11 @@ cd lucene-solr
 LUCENE_SRC_DIR=`pwd`
 
 git checkout ${LUCENE_VERSION_TAG}
+
+if [ $? -ne 0 ]; then
+    logging lucene ERROR "git checkout[${LUCENE_VERSION_TAG}] failed. Please re-run after execute 'rm -f lucene-solr'"
+    exit 1
+fi
 
 cd lucene
 ant ivy-bootstrap
