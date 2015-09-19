@@ -1,5 +1,5 @@
-# buildscript for Lucene Kuromoji with mecab-neologd
-This script to build a Lucene Kuromoji with bundled mecab-xxxxx-neologd
+# buildscript for Kuromoji with mecab-neologd
+This script to build a Lucene and Atilika Kuromoji with bundled mecab-xxxxx-neologd
 
 ## What's Lucene Kuromoji
 [Apache Lucene](http://lucene.apache.org/core/) is a high-performance, full-featured text search engine library written entirely in Java.  
