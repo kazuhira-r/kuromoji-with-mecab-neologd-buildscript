@@ -265,4 +265,3 @@ cp ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji/lucene-analyzers-kuromoji* .
 ls -l lucene-analyzers-kuromoji*
 
 logging main INFO 'END.'
-
