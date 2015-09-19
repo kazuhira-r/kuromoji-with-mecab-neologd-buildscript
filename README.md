@@ -31,11 +31,11 @@ To use this script, you must install the following software.
 
 ### Install
 ```shellscript
-$ git clone https://github.com/kazuhira-r/lucene-kuromoji-with-mecab-neologd-buildscript
+$ git clone https://github.com/kazuhira-r/kuromoji-with-mecab-neologd-buildscript
 ```
 or
 ```shellscript
-$ wget https://raw.githubusercontent.com/kazuhira-r/lucene-kuromoji-with-mecab-neologd-buildscript/master/build-lucene-kuromoji-with-mecab-ipadic-neologd.sh
+$ wget https://raw.githubusercontent.com/kazuhira-r/kuromoji-with-mecab-neologd-buildscript/master/build-lucene-kuromoji-with-mecab-ipadic-neologd.sh
 ```
 
 Please to grant execute permissions.
