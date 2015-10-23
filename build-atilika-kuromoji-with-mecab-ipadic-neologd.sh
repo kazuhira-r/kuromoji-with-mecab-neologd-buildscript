@@ -192,7 +192,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-export MAVEN_OPTS='-Xmx4g'
+export MAVEN_OPTS='-Xmx5g'
 
 logging kuromoji INFO 'Build Kuromoji, with mecab-ipadic-NEologd.'
 test ! -e kuromoji-ipadic/dictionary && mkdir kuromoji-ipadic/dictionary
