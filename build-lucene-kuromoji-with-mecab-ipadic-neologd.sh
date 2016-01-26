@@ -48,7 +48,7 @@ DEFAULT_MECAB_IPADIC_NEOLOGD_TAG=master
 MECAB_IPADIC_NEOLOGD_TAG=${DEFAULT_MECAB_IPADIC_NEOLOGD_TAG}
 
 ## Lucene Target Tag
-DEFAULT_LUCENE_VERSION_TAG=lucene_solr_5_4_0
+DEFAULT_LUCENE_VERSION_TAG=releases/lucene-solr/5.4.1
 LUCENE_VERSION_TAG=${DEFAULT_LUCENE_VERSION_TAG}
 
 ## Source Package
@@ -178,9 +178,9 @@ if [ ! -e lucene-solr ]; then
 else
     cd lucene-solr
     git checkout *
-    git checkout trunk
+    git checkout master
     git fetch origin
-    git reset --hard origin/trunk
+    git reset --hard origin/master
     git status -s | grep '^?' | perl -wn -e 's!^\?+ ([^ ]+)!git clean -df $1!; system("$_")'
     ant clean
     git pull
