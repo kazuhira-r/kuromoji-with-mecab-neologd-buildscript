@@ -48,7 +48,7 @@ DEFAULT_MECAB_IPADIC_NEOLOGD_TAG=master
 MECAB_IPADIC_NEOLOGD_TAG=${DEFAULT_MECAB_IPADIC_NEOLOGD_TAG}
 
 ## Lucene Target Tag
-DEFAULT_LUCENE_VERSION_TAG=releases/lucene-solr/5.5.0
+DEFAULT_LUCENE_VERSION_TAG=releases/lucene-solr/6.0.0
 LUCENE_VERSION_TAG=${DEFAULT_LUCENE_VERSION_TAG}
 
 ## Source Package
@@ -220,7 +220,7 @@ if [ -e ${LUCENE_SRC_DIR}/lucene/version.properties ]; then
 fi
 perl -wp -i -e "s!\"dev.version.suffix\" value=\"SNAPSHOT\"!\"dev.version.suffix\" value=\"${NEOLOGD_VERSION_DATE}-SNAPSHOT\"!" ${LUCENE_SRC_DIR}/lucene/common-build.xml
 perl -wp -i -e 's!<project name="analyzers-kuromoji"!<project name="analyzers-kuromoji-ipadic-neologd"!' build.xml
-perl -wp -i -e 's!maxmemory="[^"]+"!maxmemory="4g"!' build.xml
+perl -wp -i -e 's!maxmemory="[^"]+"!maxmemory="5g"!' build.xml
 
 if [ "${REDEFINED_KUROMOJI_PACKAGE}" != "${DEFAULT_KUROMOJI_PACKAGE}" ]; then
     logging lucene INFO "redefine package [${DEFAULT_KUROMOJI_PACKAGE}] => [${REDEFINED_KUROMOJI_PACKAGE}]."
