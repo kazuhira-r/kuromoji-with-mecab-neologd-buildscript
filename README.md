@@ -101,7 +101,7 @@ In this case, it is "lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526-SNA
 * -L - branch or tag name in Apache Lucene of a build target. default: current Apache Lucene latest release tag.
 * -p - package name at the time of a build. default: org.apache.lucene.analysis.ja (original package)
 
-## Build Atilika Krumoji for mecab-ipadic-NEologd
+## Build Atilika Kuromoji for mecab-ipadic-NEologd
 ### Install
 ```shellscript
 $ git clone https://github.com/kazuhira-r/kuromoji-with-mecab-neologd-buildscript
