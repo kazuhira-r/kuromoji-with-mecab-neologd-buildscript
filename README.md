@@ -93,7 +93,7 @@ drwxr-xr-x 8 xyz xyz     4096 May 23  2015 mecab-0.996
 -rw-rw-r-- 1 xyz xyz  1398663 Feb 18  2013 mecab-0.996.tar.gz
 drwxrwxr-x 2 xyz xyz     4096 May 23  2015 mecab-ipadic-2.7.0-20070801
 -rw-rw-r-- 1 xyz xyz 12208105 Oct 16  2011 mecab-ipadic-2.7.0-20070801.tar.gz
-drwxrwxr-x 9 xyz kazuhira     4096 May 29 15:19 mecab-ipadic-neologd
+drwxrwxr-x 9 xyz xyz     4096 May 29 15:19 mecab-ipadic-neologd
 ```
 
 In this case, it is "lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526-SNAPSHOT.jar" JAR file that was built.
