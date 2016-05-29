@@ -98,6 +98,17 @@ drwxrwxr-x 9 xyz xyz     4096 May 29 15:19 mecab-ipadic-neologd
 
 In this case, it is "lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526-SNAPSHOT.jar" JAR file that was built.
 
+### JAR file naming
+Naming of a JAR file of a build result is as follows.
+
+```
+naming:
+lucene-analyzers-kuromoji-ipadic-neologd-[Lucene Version]-[mecab-ipadic-NEologd dictionary date]-SNAPSHOT.jar
+
+example:
+lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526-SNAPSHOT.jar
+```
+
 ### Build options
 * -N - branch or tag name in mecab-ipadic-NEologd, included in a build. default: master
 * -L - branch or tag name in Apache Lucene of a build target. default: current Apache Lucene latest release tag.
@@ -157,6 +168,17 @@ drwxrwxr-x  9 xyz xyz      4096 May 29 16:43 mecab-ipadic-neologd
 ```
 
 In this case, it is "kuromoji-ipadic-neologd-0.9.0-20160526.jar" JAR file that was built.
+
+### JAR file naming
+Naming of a JAR file of a build result is as follows.
+
+```
+naming:
+kuromoji-ipadic-neologd-[Atilika Kuromoji Version]-[mecab-ipadic-NEologd dictionary date].jar
+
+example:
+kuromoji-ipadic-neologd-0.9.0-20160526.jar
+```
 
 ### Build options
 * -N - branch or tag name in mecab-ipadic-NEologd, included in a build. default: master
