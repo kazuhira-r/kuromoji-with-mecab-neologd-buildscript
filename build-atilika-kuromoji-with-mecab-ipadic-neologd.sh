@@ -24,6 +24,7 @@ usage() {
 Usage: ${SCRIPT_NAME} [options...]
   options:
     -N ... mecab-ipadic-NEologd Tag, use git checkout argument. (default: ${DEFAULT_MECAB_IPADIC_NEOLOGD_TAG})
+    -T ... install adjective ext. if you want enable, specified 1. (default: ${DEFAULT_INSTALL_ADJECTIVE_EXT})
     -K ... Kuromoji Version Tag, use git checkout argument. (default: ${DEFAULT_KUROMOJI_VERSION_TAG}) 
     -p ... build Kuromoji Java Package. (default: ${DEFAULT_KUROMOJI_PACKAGE})
     -h ... print this help.
@@ -43,6 +44,10 @@ DEFAULT_CHARSET=utf-8
 DEFAULT_MECAB_IPADIC_NEOLOGD_TAG=master
 MECAB_IPADIC_NEOLOGD_TAG=${DEFAULT_MECAB_IPADIC_NEOLOGD_TAG}
 
+## install adjective ext
+DEFAULT_INSTALL_ADJECTIVE_EXT=0
+INSTALL_ADJECTIVE_EXT=${DEFAULT_INSTALL_ADJECTIVE_EXT}
+
 ## Kuromoji Target Tag
 DEFAULT_KUROMOJI_VERSION_TAG=0.9.0
 KUROMOJI_VERSION_TAG=${DEFAULT_KUROMOJI_VERSION_TAG}
@@ -52,13 +57,15 @@ DEFAULT_KUROMOJI_PACKAGE=com.atilika.kuromoji.ipadic
 REDEFINED_KUROMOJI_PACKAGE=${DEFAULT_KUROMOJI_PACKAGE}
 
 ########## Arguments Process ##########
-while getopts K:N:p:h OPTION
+while getopts K:N:T:p:h OPTION
 do
     case $OPTION in
         K)
             KUROMOJI_VERSION_TAG=${OPTARG};;
         N)
             MECAB_IPADIC_NEOLOGD_TAG=${OPTARG};;
+        T)
+            INSTALL_ADJECTIVE_EXT=${OPTARG};;
         p)
             REDEFINED_KUROMOJI_PACKAGE=${OPTARG};;
         h)
@@ -83,6 +90,7 @@ applied build options.
 [MeCab IPA Dictionary Version]  ... ${MECAB_IPA_DICTIONARY_VERSION}
 [Dictionary CharacterSet]       ... ${DEFAULT_CHARSET}
 [mecab-ipadic-NEologd Tag (-N)] ... ${MECAB_IPADIC_NEOLOGD_TAG}
+[install adjective ext (-T)]    ... ${INSTALL_ADJECTIVE_EXT}
 [Kuromoji Kuromoji Version Tag (-K)]  .. ${KUROMOJI_VERSION_TAG}
 [Kuromoji Package Name (-p)]    ... ${REDEFINED_KUROMOJI_PACKAGE}
 
@@ -157,7 +165,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-libexec/make-mecab-ipadic-neologd.sh
+libexec/make-mecab-ipadic-neologd.sh -T ${INSTALL_ADJECTIVE_EXT}
 
 DIR=`pwd`
 

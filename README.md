@@ -74,6 +74,7 @@ applied build options.
 [MeCab IPA Dictionary Version]  ... mecab-ipadic-2.7.0-20070801
 [Dictionary CharacterSet]       ... utf-8
 [mecab-ipadic-NEologd Tag (-N)] ... master
+[install adjective ext (-T)]    ... 0
 [Max BaseForm Length]           ... 15
 [Lucene Version Tag (-L)]       ... releases/lucene-solr/6.0.1
 [Kuromoji Package Name (-p)]    ... org.apache.lucene.analysis.ja
@@ -111,6 +112,7 @@ lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526-SNAPSHOT.jar
 
 ### Build options
 * -N - branch or tag name in mecab-ipadic-NEologd, included in a build. default: master
+* -T - install adjective ext. if you want enable, specified 1. default: 0
 * -L - branch or tag name in Apache Lucene of a build target. default: current Apache Lucene latest release tag.
 * -p - package name at the time of a build. default: org.apache.lucene.analysis.ja (original package)
 
@@ -146,6 +148,7 @@ applied build options.
 [MeCab IPA Dictionary Version]  ... mecab-ipadic-2.7.0-20070801
 [Dictionary CharacterSet]       ... utf-8
 [mecab-ipadic-NEologd Tag (-N)] ... master
+[install adjective ext (-T)]    ... 0
 [Kuromoji Kuromoji Version Tag (-K)]  .. 0.9.0
 [Kuromoji Package Name (-p)]    ... com.atilika.kuromoji.ipadic
 
@@ -182,6 +185,7 @@ kuromoji-ipadic-neologd-0.9.0-20160526.jar
 
 ### Build options
 * -N - branch or tag name in mecab-ipadic-NEologd, included in a build. default: master
+* -T - install adjective ext. if you want enable, specified 1. default: 0
 * -K - branch or tag name in Atilika Kuromoji of a build target. default: current Atilika Kuromoji latest release tag.
 * -p - package name at the time of a build. default: com.atilika.kuromoji.ipadic (original package)
 

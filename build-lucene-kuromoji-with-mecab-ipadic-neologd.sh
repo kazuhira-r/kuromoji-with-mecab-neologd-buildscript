@@ -25,6 +25,7 @@ usage() {
 Usage: ${SCRIPT_NAME} [options...]
   options:
     -N ... mecab-ipadic-NEologd Tag, use git checkout argument. (default: ${DEFAULT_MECAB_IPADIC_NEOLOGD_TAG})
+    -T ... install adjective ext. if you want enable, specified 1. (default: ${DEFAULT_INSTALL_ADJECTIVE_EXT})
     -L ... Lucene Version Tag, use git checkout argument. (default: ${DEFAULT_LUCENE_VERSION_TAG}) 
     -p ... build Kuromoji Java Package. (default: ${DEFAULT_KUROMOJI_PACKAGE})
     -h ... print this help.
@@ -47,6 +48,10 @@ MAX_BASEFORM_LENGTH=15
 DEFAULT_MECAB_IPADIC_NEOLOGD_TAG=master
 MECAB_IPADIC_NEOLOGD_TAG=${DEFAULT_MECAB_IPADIC_NEOLOGD_TAG}
 
+## install adjective ext
+DEFAULT_INSTALL_ADJECTIVE_EXT=0
+INSTALL_ADJECTIVE_EXT=${DEFAULT_INSTALL_ADJECTIVE_EXT}
+
 ## Lucene Target Tag
 DEFAULT_LUCENE_VERSION_TAG=releases/lucene-solr/6.1.0
 LUCENE_VERSION_TAG=${DEFAULT_LUCENE_VERSION_TAG}
@@ -56,13 +61,15 @@ DEFAULT_KUROMOJI_PACKAGE=org.apache.lucene.analysis.ja
 REDEFINED_KUROMOJI_PACKAGE=${DEFAULT_KUROMOJI_PACKAGE}
 
 ########## Arguments Process ##########
-while getopts L:N:p:h OPTION
+while getopts L:N:T:p:h OPTION
 do
     case $OPTION in
         L)
             LUCENE_VERSION_TAG=${OPTARG};;
         N)
             MECAB_IPADIC_NEOLOGD_TAG=${OPTARG};;
+        T)
+            INSTALL_ADJECTIVE_EXT=${OPTARG};;
         p)
             REDEFINED_KUROMOJI_PACKAGE=${OPTARG};;
         h)
@@ -87,6 +94,7 @@ applied build options.
 [MeCab IPA Dictionary Version]  ... ${MECAB_IPA_DICTIONARY_VERSION}
 [Dictionary CharacterSet]       ... ${DEFAULT_CHARSET}
 [mecab-ipadic-NEologd Tag (-N)] ... ${MECAB_IPADIC_NEOLOGD_TAG}
+[install adjective ext (-T)]    ... ${INSTALL_ADJECTIVE_EXT}
 [Max BaseForm Length]           ... ${MAX_BASEFORM_LENGTH}
 [Lucene Version Tag (-L)]       ... ${LUCENE_VERSION_TAG}
 [Kuromoji Package Name (-p)]    ... ${REDEFINED_KUROMOJI_PACKAGE}
@@ -162,7 +170,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-libexec/make-mecab-ipadic-neologd.sh -L ${MAX_BASEFORM_LENGTH}
+libexec/make-mecab-ipadic-neologd.sh -L ${MAX_BASEFORM_LENGTH} -T ${INSTALL_ADJECTIVE_EXT}
 
 DIR=`pwd`
 
