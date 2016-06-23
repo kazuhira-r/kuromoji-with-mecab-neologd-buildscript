@@ -91,7 +91,7 @@ applied build options.
 [Dictionary CharacterSet]       ... ${DEFAULT_CHARSET}
 [mecab-ipadic-NEologd Tag (-N)] ... ${MECAB_IPADIC_NEOLOGD_TAG}
 [install adjective ext (-T)]    ... ${INSTALL_ADJECTIVE_EXT}
-[Kuromoji Kuromoji Version Tag (-K)]  .. ${KUROMOJI_VERSION_TAG}
+[Kuromoji Version Tag (-K)]     ... ${KUROMOJI_VERSION_TAG}
 [Kuromoji Package Name (-p)]    ... ${REDEFINED_KUROMOJI_PACKAGE}
 
 ####################################################################

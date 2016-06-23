@@ -149,7 +149,7 @@ applied build options.
 [Dictionary CharacterSet]       ... utf-8
 [mecab-ipadic-NEologd Tag (-N)] ... master
 [install adjective ext (-T)]    ... 0
-[Kuromoji Kuromoji Version Tag (-K)]  .. 0.9.0
+[Kuromoji Version Tag (-K)]     ... 0.9.0
 [Kuromoji Package Name (-p)]    ... com.atilika.kuromoji.ipadic
 
 ####################################################################
