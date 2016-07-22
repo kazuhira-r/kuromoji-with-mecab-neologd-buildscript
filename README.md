@@ -70,9 +70,7 @@ The setting when execute, is indicated.
 ####################################################################
 applied build options.
 
-[MeCab Version]                 ... mecab-0.996
-[MeCab IPA Dictionary Version]  ... mecab-ipadic-2.7.0-20070801
-[Dictionary CharacterSet]       ... utf-8
+[Auto Install MeCab Version]    ... mecab-0.996
 [mecab-ipadic-NEologd Tag (-N)] ... master
 [install adjective ext (-T)]    ... 0
 [Max BaseForm Length]           ... 15
@@ -144,9 +142,7 @@ The setting when execute, is indicated.
 ####################################################################
 applied build options.
 
-[MeCab Version]                 ... mecab-0.996
-[MeCab IPA Dictionary Version]  ... mecab-ipadic-2.7.0-20070801
-[Dictionary CharacterSet]       ... utf-8
+[Auto Install MeCab Version]    ... mecab-0.996
 [mecab-ipadic-NEologd Tag (-N)] ... master
 [install adjective ext (-T)]    ... 0
 [Kuromoji Version Tag (-K)]     ... 0.9.0
