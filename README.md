@@ -90,8 +90,6 @@ drwxrwxr-x 6 xyz xyz     4096 May 29 15:21 lucene-solr
 drwxrwxr-x 8 xyz xyz     4096 May 23  2015 mecab
 drwxr-xr-x 8 xyz xyz     4096 May 23  2015 mecab-0.996
 -rw-rw-r-- 1 xyz xyz  1398663 Feb 18  2013 mecab-0.996.tar.gz
-drwxrwxr-x 2 xyz xyz     4096 May 23  2015 mecab-ipadic-2.7.0-20070801
--rw-rw-r-- 1 xyz xyz 12208105 Oct 16  2011 mecab-ipadic-2.7.0-20070801.tar.gz
 drwxrwxr-x 9 xyz xyz     4096 May 29 15:19 mecab-ipadic-neologd
 ```
 
@@ -161,8 +159,6 @@ drwxrwxr-x 10 xyz xyz      4096 May 29 16:44 kuromoji
 drwxrwxr-x  8 xyz xyz      4096 Sep 19  2015 mecab
 drwxr-xr-x  8 xyz xyz      4096 Sep 19  2015 mecab-0.996
 -rw-rw-r--  1 xyz xyz   1398663 Feb 18  2013 mecab-0.996.tar.gz
-drwxrwxr-x  2 xyz xyz      4096 Sep 19  2015 mecab-ipadic-2.7.0-20070801
--rw-rw-r--  1 xyz xyz  12208105 Oct 16  2011 mecab-ipadic-2.7.0-20070801.tar.gz
 drwxrwxr-x  9 xyz xyz      4096 May 29 16:43 mecab-ipadic-neologd
 ```
 
@@ -189,7 +185,6 @@ kuromoji-ipadic-neologd-0.9.0-20160526.jar
 This script, perform the following processing.
 
 * Check the installation of MeCab, Installing MeCab in the current directory unless MeCab is not installed
-* Check the installation of MeCab, Installing mecab-ipadic in the current directory unless MeCab is not installed
 * Clone mecab-ipadic-NEologd
 * Generate a dictionary CSV(using libexec/make-mecab-ipadic-neologd.sh -L)
 * Clone Apache Lucene or Atilika Kuromoji source code
