@@ -34,7 +34,6 @@ To use this script, you must install the following software.
 * iconv
 * xz
 * [MeCab](http://taku910.github.io/mecab/) (optional)
-* [mecab-ipadic](https://sourceforge.net/projects/mecab/files/mecab-ipadic/) (optional)
 
 *Note:*
 

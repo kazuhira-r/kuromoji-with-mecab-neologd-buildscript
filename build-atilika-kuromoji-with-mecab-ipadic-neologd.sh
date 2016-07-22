@@ -36,10 +36,6 @@ EOF
 MECAB_VERSION=mecab-0.996
 MECAB_INSTALL_DIR=${WORK_DIR}/mecab
 
-## MeCab IPA Dictionary
-MECAB_IPA_DICTIONARY_VERSION=mecab-ipadic-2.7.0-20070801
-DEFAULT_CHARSET=utf-8
-
 ## mecab-ipadic-NEologd Target Tag
 DEFAULT_MECAB_IPADIC_NEOLOGD_TAG=master
 MECAB_IPADIC_NEOLOGD_TAG=${DEFAULT_MECAB_IPADIC_NEOLOGD_TAG}
@@ -87,8 +83,6 @@ cat <<EOF
 applied build options.
 
 [MeCab Version]                 ... ${MECAB_VERSION}
-[MeCab IPA Dictionary Version]  ... ${MECAB_IPA_DICTIONARY_VERSION}
-[Dictionary CharacterSet]       ... ${DEFAULT_CHARSET}
 [mecab-ipadic-NEologd Tag (-N)] ... ${MECAB_IPADIC_NEOLOGD_TAG}
 [install adjective ext (-T)]    ... ${INSTALL_ADJECTIVE_EXT}
 [Kuromoji Version Tag (-K)]     ... ${KUROMOJI_VERSION_TAG}
@@ -119,22 +113,9 @@ if [ ! `which mecab` ]; then
         make
         make install
 
-        PATH=${MECAB_INSTALL_DIR}/bin:${PATH}
-
-        cd ${WORK_DIR}
-
-        logging mecab INFO 'MeCab IPA Dictionary Install Local.'
-        if [ ! -e ${MECAB_IPA_DICTIONARY_VERSION}.tar.gz ]; then
-            wget https://mecab.googlecode.com/files/${MECAB_IPA_DICTIONARY_VERSION}.tar.gz
-        fi
-        tar -zxf ${MECAB_IPA_DICTIONARY_VERSION}.tar.gz
-        cd ${MECAB_IPA_DICTIONARY_VERSION}
-        ./configure --with-charset=${DEFAULT_CHARSET}
-        make
-        make install
-    else
-        PATH=${MECAB_INSTALL_DIR}/bin:${PATH}
     fi
+
+    PATH=${MECAB_INSTALL_DIR}/bin:${PATH}
 fi
 
 cd ${WORK_DIR}
