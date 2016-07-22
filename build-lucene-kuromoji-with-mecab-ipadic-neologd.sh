@@ -86,7 +86,7 @@ cat <<EOF
 ####################################################################
 applied build options.
 
-[MeCab Version]                 ... ${MECAB_VERSION}
+[Auto Install MeCab Version]    ... ${MECAB_VERSION}
 [mecab-ipadic-NEologd Tag (-N)] ... ${MECAB_IPADIC_NEOLOGD_TAG}
 [install adjective ext (-T)]    ... ${INSTALL_ADJECTIVE_EXT}
 [Max BaseForm Length]           ... ${MAX_BASEFORM_LENGTH}

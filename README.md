@@ -33,7 +33,8 @@ To use this script, you must install the following software.
 * iconv
 * xz
 * Perl
-* [MeCab (mecab/mecab-config)](http://taku910.github.io/mecab/) (optional)
+* [MeCab (mecab/mecab-config)](http://taku910.github.io/mecab/) (optional, auto install)
+* C++ Compiler (when MeCab is installed automatically)
 
 *Note:*
 
