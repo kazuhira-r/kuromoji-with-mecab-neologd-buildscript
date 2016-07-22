@@ -30,7 +30,6 @@ To use this script, you must install the following software.
 * Git
 * make
 * curl
-* wget
 * iconv
 * xz
 * Perl

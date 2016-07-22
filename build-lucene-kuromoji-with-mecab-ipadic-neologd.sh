@@ -105,7 +105,7 @@ if [ ! `which mecab` ]; then
         logging mecab INFO 'MeCab Install Local.'
 
         if [ ! -e ${MECAB_VERSION}.tar.gz ]; then
-            wget https://mecab.googlecode.com/files/${MECAB_VERSION}.tar.gz
+            curl https://mecab.googlecode.com/files/${MECAB_VERSION}.tar.gz -o ${MECAB_VERSION}.tar.gz
         fi
         tar -zxf ${MECAB_VERSION}.tar.gz
         cd ${MECAB_VERSION}
