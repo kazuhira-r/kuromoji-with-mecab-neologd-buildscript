@@ -28,11 +28,13 @@ To use this script, you must install the following software.
 * [Apache Ant](http://ant.apache.org/) (for Lucene Kuromoji)
 * [Apache Maven](https://maven.apache.org/) (for Atilika Kuromoji)
 * Git
-* Perl
+* make
+* curl
 * wget
 * iconv
 * xz
-* [MeCab](http://taku910.github.io/mecab/) (optional)
+* Perl
+* [MeCab (mecab/mecab-config)](http://taku910.github.io/mecab/) (optional)
 
 *Note:*
 
