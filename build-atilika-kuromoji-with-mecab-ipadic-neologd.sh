@@ -133,7 +133,7 @@ else
     git checkout master
     git fetch origin
     git reset --hard origin/master
-    git pull
+    git pull --tags
     cd ..
 fi
 
@@ -167,7 +167,7 @@ else
     git reset --hard origin/master
     git status -s | grep '^?' | perl -wn -e 's!^\?+ ([^ ]+)!git clean -df $1!; system("$_")'
     mvn clean
-    git pull
+    git pull --tags
     cd ..
 fi
 
