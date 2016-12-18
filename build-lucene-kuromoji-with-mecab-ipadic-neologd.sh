@@ -2,7 +2,7 @@
 
 ########## Init ##########
 SCRIPT_NAME=$0
-WORK_DIR=`pwd`
+KUROMOJI_NEOLOGD_BUILD_WORK_DIR=`pwd`
 
 ########## Proxy Settings ##########
 #export http_proxy=http://your.proxy-host:your.proxy-port
@@ -37,7 +37,7 @@ EOF
 ########## Default & Fixed Values ##########
 ## MeCab
 MECAB_VERSION=mecab-0.996
-MECAB_INSTALL_DIR=${WORK_DIR}/mecab
+MECAB_INSTALL_DIR=${KUROMOJI_NEOLOGD_BUILD_WORK_DIR}/mecab
 
 ## mecab-ipadic-NEologd
 MAX_BASEFORM_LENGTH=15
@@ -143,7 +143,7 @@ if [ ! `which mecab` ]; then
     PATH=${MECAB_INSTALL_DIR}/bin:${PATH}
 fi
 
-cd ${WORK_DIR}
+cd ${KUROMOJI_NEOLOGD_BUILD_WORK_DIR}
 
 logging mecab-ipadic-NEologd INFO 'Download mecab-ipadic-NEologd.'
 if [ ! -e mecab-ipadic-neologd ]; then
@@ -179,7 +179,7 @@ NEOLOGD_BUILD_DIR=`find ${DIR}/build/mecab-ipadic-* -maxdepth 1 -type d`
 NEOLOGD_DIRNAME=`basename ${NEOLOGD_BUILD_DIR}`
 NEOLOGD_VERSION_DATE=`echo ${NEOLOGD_DIRNAME} | perl -wp -e 's!.+-(\d+)!$1!'`
 
-cd ${WORK_DIR}
+cd ${KUROMOJI_NEOLOGD_BUILD_WORK_DIR}
 
 logging lucene INFO 'Lucene Repository Clone.'
 if [ ! -e lucene-solr ]; then
@@ -267,7 +267,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-cd ${WORK_DIR}
+cd ${KUROMOJI_NEOLOGD_BUILD_WORK_DIR}
 
 KUROMOJI_SNAPSHOT_JAR_FILENAME=`ls -1 ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji/lucene-analyzers-kuromoji*`
 KUROMOJI_JAR_FILENAME=`echo ${KUROMOJI_SNAPSHOT_JAR_FILENAME} | perl -wp -e 's!(.+)-SNAPSHOT(.+)!$1$2!'`

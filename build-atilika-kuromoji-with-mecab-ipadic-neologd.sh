@@ -2,7 +2,7 @@
 
 ########## Init ##########
 SCRIPT_NAME=$0
-WORK_DIR=`pwd`
+KUROMOJI_NEOLOGD_BUILD_WORK_DIR=`pwd`
 
 ########## Proxy Settings ##########
 #export http_proxy=http://your.proxy-host:your.proxy-port
@@ -118,7 +118,7 @@ if [ ! `which mecab` ]; then
     PATH=${MECAB_INSTALL_DIR}/bin:${PATH}
 fi
 
-cd ${WORK_DIR}
+cd ${KUROMOJI_NEOLOGD_BUILD_WORK_DIR}
 
 logging mecab-ipadic-NEologd INFO 'Download mecab-ipadic-NEologd.'
 if [ ! -e mecab-ipadic-neologd ]; then
@@ -154,7 +154,7 @@ NEOLOGD_BUILD_DIR=`find ${DIR}/build/mecab-ipadic-* -maxdepth 1 -type d`
 NEOLOGD_DIRNAME=`basename ${NEOLOGD_BUILD_DIR}`
 NEOLOGD_VERSION_DATE=`echo ${NEOLOGD_DIRNAME} | perl -wp -e 's!.+-(\d+)!$1!'`
 
-cd ${WORK_DIR}
+cd ${KUROMOJI_NEOLOGD_BUILD_WORK_DIR}
 
 logging kuromoji INFO 'Kuromoji Repository Clone.'
 if [ ! -e kuromoji ]; then
@@ -217,7 +217,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-cd ${WORK_DIR}
+cd ${KUROMOJI_NEOLOGD_BUILD_WORK_DIR}
 
 KUROMOJI_JAR_VERSION=`echo ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/target/kuromoji-ipadic-*.jar | perl -wp -e 's!.+/kuromoji-ipadic-([.\d]+)(.*).jar!$1!'`
 KUROMOJI_JAR_SUFFIX=`echo ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/target/kuromoji-ipadic-*.jar | perl -wp -e 's!.+/kuromoji-ipadic-([.\d]+)(.*).jar!$2!'`
