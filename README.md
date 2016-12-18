@@ -64,12 +64,12 @@ The setting when execute, is indicated.
 ####################################################################
 applied build options.
 
-[Auto Install MeCab Version]                      ... mecab-0.996
+[Auto Install MeCab Version                  ]    ... mecab-0.996
 [mecab-ipadic-NEologd Tag                (-N)]    ... master
 [install adjective ext                   (-T)]    ... 0
-[Max BaseForm Length]                             ... 15
+[Max BaseForm Length                         ]    ... 15
 [Lucene Version Tag                      (-L)]    ... releases/lucene-solr/6.3.0
-[Kuromoji build Max Heapsize             (-M)]    ... 5g
+[Kuromoji build Max Heapsize             (-M)]    ... 6g
 [Kuromoji JAR File Output Directory Name (-o)]    ... .
 [Kuromoji Package Name                   (-p)]    ... org.apache.lucene.analysis.ja
 
