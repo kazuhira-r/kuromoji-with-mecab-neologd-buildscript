@@ -100,10 +100,10 @@ cat <<EOF
 ####################################################################
 applied build options.
 
-[Auto Install MeCab Version]                      ... ${MECAB_VERSION}
+[Auto Install MeCab Version                  ]    ... ${MECAB_VERSION}
 [mecab-ipadic-NEologd Tag                (-N)]    ... ${MECAB_IPADIC_NEOLOGD_TAG}
 [install adjective ext                   (-T)]    ... ${INSTALL_ADJECTIVE_EXT}
-[Max BaseForm Length]                             ... ${MAX_BASEFORM_LENGTH}
+[Max BaseForm Length                         ]    ... ${MAX_BASEFORM_LENGTH}
 [Lucene Version Tag                      (-L)]    ... ${LUCENE_VERSION_TAG}
 [Kuromoji build Max Heapsize             (-M)]    ... ${KUROMOJI_BUILD_MAX_HEAPSIZE}
 [Kuromoji JAR File Output Directory Name (-o)]    ... ${JAR_FILE_OUTPUT_DIRECTORY}
