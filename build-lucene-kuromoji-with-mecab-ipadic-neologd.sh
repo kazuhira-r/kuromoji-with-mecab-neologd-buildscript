@@ -27,6 +27,7 @@ Usage: ${SCRIPT_NAME} [options...]
     -N ... mecab-ipadic-NEologd Tag, use git checkout argument. (default: ${DEFAULT_MECAB_IPADIC_NEOLOGD_TAG})
     -T ... install adjective ext. if you want enable, specified 1. (default: ${DEFAULT_INSTALL_ADJECTIVE_EXT})
     -L ... Lucene Version Tag, use git checkout argument. (default: ${DEFAULT_LUCENE_VERSION_TAG}) 
+    -M ... Kuromoji build max heapsize. (default: ${DEFAULT_KUROMOJI_BUILD_MAX_HEAPSIZE})
     -o ... generated Kuromoji JAR file output directory. (default: ${DEFAULT_JAR_FILE_OUTPUT_DIRECTORY} (current directory))
     -p ... build Kuromoji Java Package. (default: ${DEFAULT_KUROMOJI_PACKAGE})
     -h ... print this help.
@@ -53,6 +54,10 @@ INSTALL_ADJECTIVE_EXT=${DEFAULT_INSTALL_ADJECTIVE_EXT}
 DEFAULT_LUCENE_VERSION_TAG=releases/lucene-solr/6.3.0
 LUCENE_VERSION_TAG=${DEFAULT_LUCENE_VERSION_TAG}
 
+## Kuromoji build max heapsize
+DEFAULT_KUROMOJI_BUILD_MAX_HEAPSIZE=5g
+KUROMOJI_BUILD_MAX_HEAPSIZE=${DEFAULT_KUROMOJI_BUILD_MAX_HEAPSIZE}
+
 ## generated JAR file output directory
 DEFAULT_JAR_FILE_OUTPUT_DIRECTORY=.
 JAR_FILE_OUTPUT_DIRECTORY=${DEFAULT_JAR_FILE_OUTPUT_DIRECTORY}
@@ -62,7 +67,7 @@ DEFAULT_KUROMOJI_PACKAGE=org.apache.lucene.analysis.ja
 REDEFINED_KUROMOJI_PACKAGE=${DEFAULT_KUROMOJI_PACKAGE}
 
 ########## Arguments Process ##########
-while getopts L:N:T:o:p:h OPTION
+while getopts L:N:T:M:o:p:h OPTION
 do
     case $OPTION in
         L)
@@ -71,6 +76,8 @@ do
             MECAB_IPADIC_NEOLOGD_TAG=${OPTARG};;
         T)
             INSTALL_ADJECTIVE_EXT=${OPTARG};;
+        M)
+            KUROMOJI_BUILD_MAX_HEAPSIZE=${OPTARG};;
         o)
             JAR_FILE_OUTPUT_DIRECTORY=${OPTARG};;
         p)
@@ -98,6 +105,7 @@ applied build options.
 [install adjective ext                   (-T)]    ... ${INSTALL_ADJECTIVE_EXT}
 [Max BaseForm Length]                             ... ${MAX_BASEFORM_LENGTH}
 [Lucene Version Tag                      (-L)]    ... ${LUCENE_VERSION_TAG}
+[Kuromoji build Max Heapsize             (-M)]    ... ${KUROMOJI_BUILD_MAX_HEAPSIZE}
 [Kuromoji JAR File Output Directory Name (-o)]    ... ${JAR_FILE_OUTPUT_DIRECTORY}
 [Kuromoji Package Name                   (-p)]    ... ${REDEFINED_KUROMOJI_PACKAGE}
 
@@ -221,7 +229,7 @@ if [ -e ${LUCENE_SRC_DIR}/lucene/version.properties ]; then
 fi
 perl -wp -i -e "s!\"dev.version.suffix\" value=\"SNAPSHOT\"!\"dev.version.suffix\" value=\"${NEOLOGD_VERSION_DATE}-SNAPSHOT\"!" ${LUCENE_SRC_DIR}/lucene/common-build.xml
 perl -wp -i -e 's!<project name="analyzers-kuromoji"!<project name="analyzers-kuromoji-ipadic-neologd"!' build.xml
-perl -wp -i -e 's!maxmemory="[^"]+"!maxmemory="5g"!' build.xml
+perl -wp -i -e 's!maxmemory="[^"]+"!maxmemory="'${KUROMOJI_BUILD_MAX_HEAPSIZE}'"!' build.xml
 
 if [ "${REDEFINED_KUROMOJI_PACKAGE}" != "${DEFAULT_KUROMOJI_PACKAGE}" ]; then
     logging lucene INFO "redefine package [${DEFAULT_KUROMOJI_PACKAGE}] => [${REDEFINED_KUROMOJI_PACKAGE}]."
