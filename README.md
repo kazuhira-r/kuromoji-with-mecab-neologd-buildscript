@@ -34,11 +34,7 @@ To use this script, you must install the following software.
 * [MeCab (mecab/mecab-config)](http://taku910.github.io/mecab/) (optional, auto install)
 * C++ Compiler (when MeCab is installed automatically)
 
-*Note:*
-
-Many CPU and memory resource are used by a build.
-
-About 5-6 GB of JavaVM heap is needed at present.
+*Note: Many CPU and memory resource are used by a build. About 5-6 GB of JavaVM heap is needed at present.*
 
 ## Build Lucene Kuromoji for mecab-ipadic-NEologd
 ### Install
