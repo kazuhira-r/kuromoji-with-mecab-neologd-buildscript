@@ -27,6 +27,7 @@ Usage: ${SCRIPT_NAME} [options...]
     -N ... mecab-ipadic-NEologd Tag, use git checkout argument. (default: ${DEFAULT_MECAB_IPADIC_NEOLOGD_TAG})
     -T ... install adjective ext. if you want enable, specified 1. (default: ${DEFAULT_INSTALL_ADJECTIVE_EXT})
     -L ... Lucene Version Tag, use git checkout argument. (default: ${DEFAULT_LUCENE_VERSION_TAG}) 
+    -o ... generated Kuromoji JAR file output directory. (default: ${DEFAULT_JAR_FILE_OUTPUT_DIRECTORY} (current directory))
     -p ... build Kuromoji Java Package. (default: ${DEFAULT_KUROMOJI_PACKAGE})
     -h ... print this help.
 EOF
@@ -52,12 +53,16 @@ INSTALL_ADJECTIVE_EXT=${DEFAULT_INSTALL_ADJECTIVE_EXT}
 DEFAULT_LUCENE_VERSION_TAG=releases/lucene-solr/6.3.0
 LUCENE_VERSION_TAG=${DEFAULT_LUCENE_VERSION_TAG}
 
+## generated JAR file output directory
+DEFAULT_JAR_FILE_OUTPUT_DIRECTORY=.
+JAR_FILE_OUTPUT_DIRECTORY=${DEFAULT_JAR_FILE_OUTPUT_DIRECTORY}
+
 ## Source Package
 DEFAULT_KUROMOJI_PACKAGE=org.apache.lucene.analysis.ja
 REDEFINED_KUROMOJI_PACKAGE=${DEFAULT_KUROMOJI_PACKAGE}
 
 ########## Arguments Process ##########
-while getopts L:N:T:p:h OPTION
+while getopts L:N:T:o:p:h OPTION
 do
     case $OPTION in
         L)
@@ -66,6 +71,8 @@ do
             MECAB_IPADIC_NEOLOGD_TAG=${OPTARG};;
         T)
             INSTALL_ADJECTIVE_EXT=${OPTARG};;
+        o)
+            JAR_FILE_OUTPUT_DIRECTORY=${OPTARG};;
         p)
             REDEFINED_KUROMOJI_PACKAGE=${OPTARG};;
         h)
@@ -86,12 +93,13 @@ cat <<EOF
 ####################################################################
 applied build options.
 
-[Auto Install MeCab Version]    ... ${MECAB_VERSION}
-[mecab-ipadic-NEologd Tag (-N)] ... ${MECAB_IPADIC_NEOLOGD_TAG}
-[install adjective ext (-T)]    ... ${INSTALL_ADJECTIVE_EXT}
-[Max BaseForm Length]           ... ${MAX_BASEFORM_LENGTH}
-[Lucene Version Tag (-L)]       ... ${LUCENE_VERSION_TAG}
-[Kuromoji Package Name (-p)]    ... ${REDEFINED_KUROMOJI_PACKAGE}
+[Auto Install MeCab Version]                      ... ${MECAB_VERSION}
+[mecab-ipadic-NEologd Tag                (-N)]    ... ${MECAB_IPADIC_NEOLOGD_TAG}
+[install adjective ext                   (-T)]    ... ${INSTALL_ADJECTIVE_EXT}
+[Max BaseForm Length]                             ... ${MAX_BASEFORM_LENGTH}
+[Lucene Version Tag                      (-L)]    ... ${LUCENE_VERSION_TAG}
+[Kuromoji JAR File Output Directory Name (-o)]    ... ${JAR_FILE_OUTPUT_DIRECTORY}
+[Kuromoji Package Name                   (-p)]    ... ${REDEFINED_KUROMOJI_PACKAGE}
 
 ####################################################################
 
@@ -100,6 +108,11 @@ EOF
 sleep 3
 
 ########## Main Process ##########
+if [ ! -d ${JAR_FILE_OUTPUT_DIRECTORY} ]; then
+    logging pre-check ERROR "directory[${JAR_FILE_OUTPUT_DIRECTORY}], not exits."
+    exit 1
+fi
+
 if [ ! `which mecab` ]; then
     if [ ! -e ${MECAB_INSTALL_DIR}/bin/mecab ]; then
         logging mecab INFO 'MeCab Install Local.'
@@ -251,8 +264,8 @@ cd ${WORK_DIR}
 KUROMOJI_SNAPSHOT_JAR_FILENAME=`ls -1 ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji/lucene-analyzers-kuromoji*`
 KUROMOJI_JAR_FILENAME=`echo ${KUROMOJI_SNAPSHOT_JAR_FILENAME} | perl -wp -e 's!(.+)-SNAPSHOT(.+)!$1$2!'`
 mv ${KUROMOJI_SNAPSHOT_JAR_FILENAME} ${KUROMOJI_JAR_FILENAME}
-cp ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji/lucene-analyzers-kuromoji* ./.
+cp ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji/lucene-analyzers-kuromoji* ${JAR_FILE_OUTPUT_DIRECTORY}
 
-ls -l lucene-analyzers-kuromoji*
+ls -l ${JAR_FILE_OUTPUT_DIRECTORY}/lucene-analyzers-kuromoji*
 
 logging main INFO 'END.'

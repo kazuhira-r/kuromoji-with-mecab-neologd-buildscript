@@ -65,32 +65,34 @@ $ /path/to/build-lucene-kuromoji-with-mecab-ipadic-neologd.sh
 
 The setting when execute, is indicated.
 ```
-### [2016-05-29 15:18:45] [main] [INFO] START.
+### [2016-12-18 17:57:02] [main] [INFO] START.
 
 ####################################################################
 applied build options.
 
-[Auto Install MeCab Version]    ... mecab-0.996
-[mecab-ipadic-NEologd Tag (-N)] ... master
-[install adjective ext (-T)]    ... 0
-[Max BaseForm Length]           ... 15
-[Lucene Version Tag (-L)]       ... releases/lucene-solr/6.0.1
-[Kuromoji Package Name (-p)]    ... org.apache.lucene.analysis.ja
+[Auto Install MeCab Version]                      ... mecab-0.996
+[mecab-ipadic-NEologd Tag                (-N)]    ... master
+[install adjective ext                   (-T)]    ... 0
+[Max BaseForm Length]                             ... 15
+[Lucene Version Tag                      (-L)]    ... releases/lucene-solr/6.3.0
+[Kuromoji JAR File Output Directory Name (-o)]    ... .
+[Kuromoji Package Name                   (-p)]    ... org.apache.lucene.analysis.ja
 
 ####################################################################
 ```
 
-That were built JAR file will be created in **current directory** where you run the script.
+That were built JAR file will be created in user specified directory (default: current directory) where you run the script.
 
 ```shellscript
 $ ls -l
-total 60212
--rw-rw-r-- 1 xyz xyz 48023660 May 29 15:31 lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526.jar
-drwxrwxr-x 6 xyz xyz     4096 May 29 15:21 lucene-solr
-drwxrwxr-x 8 xyz xyz     4096 May 23  2015 mecab
-drwxr-xr-x 8 xyz xyz     4096 May 23  2015 mecab-0.996
--rw-rw-r-- 1 xyz xyz  1398663 Feb 18  2013 mecab-0.996.tar.gz
-drwxrwxr-x 9 xyz xyz     4096 May 29 15:19 mecab-ipadic-neologd
+total 51832
+-rw-rw-r-- 1 xyz xyz 51655324 Dec 18 18:05 lucene-analyzers-kuromoji-ipadic-neologd-6.3.0-20161215.jar
+drwxrwxr-x 6 xyz xyz     4096 Dec 18 18:02 lucene-solr
+drwxrwxr-x 8 xyz xyz     4096 Jul 23 00:32 mecab
+drwxr-xr-x 8 xyz xyz     4096 Jul 23 00:31 mecab-0.996
+-rw-rw-r-- 1 xyz xyz  1398663 Jul 23 00:31 mecab-0.996.tar.gz
+drwxrwxr-x 9 xyz xyz     4096 Dec 18 17:59 mecab-ipadic-neologd
+
 ```
 
 In this case, it is "lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526.jar" JAR file that was built.
@@ -110,6 +112,7 @@ lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526.jar
 * -N - branch or tag name in mecab-ipadic-NEologd, included in a build. default: master
 * -T - install adjective ext. if you want enable, specified 1. default: 0
 * -L - branch or tag name in Apache Lucene of a build target. default: current Apache Lucene latest release tag.
+* -o - generated Kuromoji JAR file output directory. (default: . (current directory))
 * -p - package name at the time of a build. default: org.apache.lucene.analysis.ja (original package)
 
 ## Build Atilika Kuromoji for mecab-ipadic-NEologd
@@ -191,7 +194,7 @@ This script, perform the following processing.
 * (Lucene Kuromoji only) Edit Apache Lucene Kuromoji's build.xml
 * Rename package name, when being necessary
 * Build Kuromoji and dictionary with mecab-ipadic-NEologd
-* Copy JAR file to current directory
+* Copy JAR file to specified directory (default: current directory)
 
 ## LICENSE
 Copyright &copy; 2015, 2016 kazuhira-r
