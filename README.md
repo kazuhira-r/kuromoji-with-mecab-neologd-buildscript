@@ -11,9 +11,7 @@ Kuromoji is morphological analyzer which is included in Apache Lucene.
 ## What's NEologd
 [mecab-ipadic-NEologd](https://github.com/neologd/mecab-ipadic-neologd) : Neologism dictionary for MeCab
 
-*Note:*
-
-These build scripts are supporting is only IPA dictionary.
+*Note: These build scripts are supporting is only IPA dictionary.*
 
 ## Supported versions
 Lucene Kuromoji: 4.x, 5.x, 6.x
