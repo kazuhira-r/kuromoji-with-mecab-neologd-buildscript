@@ -26,6 +26,8 @@ Usage: ${SCRIPT_NAME} [options...]
     -N ... mecab-ipadic-NEologd Tag, use git checkout argument. (default: ${DEFAULT_MECAB_IPADIC_NEOLOGD_TAG})
     -T ... install adjective ext. if you want enable, specified 1. (default: ${DEFAULT_INSTALL_ADJECTIVE_EXT})
     -K ... Kuromoji Version Tag, use git checkout argument. (default: ${DEFAULT_KUROMOJI_VERSION_TAG}) 
+    -M ... Kuromoji build max heapsize. (default: ${DEFAULT_KUROMOJI_BUILD_MAX_HEAPSIZE})
+    -o ... generated Kuromoji JAR file output directory. (default: ${DEFAULT_JAR_FILE_OUTPUT_DIRECTORY} (current directory))
     -p ... build Kuromoji Java Package. (default: ${DEFAULT_KUROMOJI_PACKAGE})
     -h ... print this help.
 EOF
@@ -34,7 +36,7 @@ EOF
 ########## Default & Fixed Values ##########
 ## MeCab
 MECAB_VERSION=mecab-0.996
-MECAB_INSTALL_DIR=${WORK_DIR}/mecab
+MECAB_INSTALL_DIR=${KUROMOJI_NEOLOGD_BUILD_WORK_DIR}/mecab
 
 ## mecab-ipadic-NEologd Target Tag
 DEFAULT_MECAB_IPADIC_NEOLOGD_TAG=master
@@ -48,12 +50,20 @@ INSTALL_ADJECTIVE_EXT=${DEFAULT_INSTALL_ADJECTIVE_EXT}
 DEFAULT_KUROMOJI_VERSION_TAG=0.9.0
 KUROMOJI_VERSION_TAG=${DEFAULT_KUROMOJI_VERSION_TAG}
 
+## Kuromoji build max heapsize
+DEFAULT_KUROMOJI_BUILD_MAX_HEAPSIZE=7g
+KUROMOJI_BUILD_MAX_HEAPSIZE=${DEFAULT_KUROMOJI_BUILD_MAX_HEAPSIZE}
+
+## generated JAR file output directory
+DEFAULT_JAR_FILE_OUTPUT_DIRECTORY=.
+JAR_FILE_OUTPUT_DIRECTORY=${DEFAULT_JAR_FILE_OUTPUT_DIRECTORY}
+
 ## Source Package
 DEFAULT_KUROMOJI_PACKAGE=com.atilika.kuromoji.ipadic
 REDEFINED_KUROMOJI_PACKAGE=${DEFAULT_KUROMOJI_PACKAGE}
 
 ########## Arguments Process ##########
-while getopts K:N:T:p:h OPTION
+while getopts K:N:T:M:o:p:h OPTION
 do
     case $OPTION in
         K)
@@ -62,6 +72,10 @@ do
             MECAB_IPADIC_NEOLOGD_TAG=${OPTARG};;
         T)
             INSTALL_ADJECTIVE_EXT=${OPTARG};;
+        M)
+            KUROMOJI_BUILD_MAX_HEAPSIZE=${OPTARG};;
+        o)
+            JAR_FILE_OUTPUT_DIRECTORY=${OPTARG};;
         p)
             REDEFINED_KUROMOJI_PACKAGE=${OPTARG};;
         h)
@@ -82,11 +96,13 @@ cat <<EOF
 ####################################################################
 applied build options.
 
-[Auto Install MeCab Version]    ... ${MECAB_VERSION}
-[mecab-ipadic-NEologd Tag (-N)] ... ${MECAB_IPADIC_NEOLOGD_TAG}
-[install adjective ext (-T)]    ... ${INSTALL_ADJECTIVE_EXT}
-[Kuromoji Version Tag (-K)]     ... ${KUROMOJI_VERSION_TAG}
-[Kuromoji Package Name (-p)]    ... ${REDEFINED_KUROMOJI_PACKAGE}
+[Auto Install MeCab Version                  ]    ... ${MECAB_VERSION}
+[mecab-ipadic-NEologd Tag                (-N)]    ... ${MECAB_IPADIC_NEOLOGD_TAG}
+[install adjective ext                   (-T)]    ... ${INSTALL_ADJECTIVE_EXT}
+[Kuromoji Version Tag                    (-K)]    ... ${KUROMOJI_VERSION_TAG}
+[Kuromoji build Max Heapsize             (-M)]    ... ${KUROMOJI_BUILD_MAX_HEAPSIZE}
+[Kuromoji JAR File Output Directory Name (-o)]    ... ${JAR_FILE_OUTPUT_DIRECTORY}
+[Kuromoji Package Name                   (-p)]    ... ${REDEFINED_KUROMOJI_PACKAGE}
 
 ####################################################################
 
@@ -95,6 +111,11 @@ EOF
 sleep 3
 
 ########## Main Process ##########
+if [ ! -d ${JAR_FILE_OUTPUT_DIRECTORY} ]; then
+    logging pre-check ERROR "directory[${JAR_FILE_OUTPUT_DIRECTORY}], not exits."
+    exit 1
+fi
+
 if [ ! `which mecab` ]; then
     if [ ! -e ${MECAB_INSTALL_DIR}/bin/mecab ]; then
         logging mecab INFO 'MeCab Install Local.'
@@ -181,7 +202,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-export MAVEN_OPTS='-Xmx7g'
+export MAVEN_OPTS="-Xmx${KUROMOJI_BUILD_MAX_HEAPSIZE}"
 
 logging kuromoji INFO 'Build Kuromoji, with mecab-ipadic-NEologd.'
 test ! -e kuromoji-ipadic/dictionary && mkdir kuromoji-ipadic/dictionary
@@ -221,9 +242,9 @@ cd ${KUROMOJI_NEOLOGD_BUILD_WORK_DIR}
 
 KUROMOJI_JAR_VERSION=`echo ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/target/kuromoji-ipadic-*.jar | perl -wp -e 's!.+/kuromoji-ipadic-([.\d]+)(.*).jar!$1!'`
 KUROMOJI_JAR_SUFFIX=`echo ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/target/kuromoji-ipadic-*.jar | perl -wp -e 's!.+/kuromoji-ipadic-([.\d]+)(.*).jar!$2!'`
-cp ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/target/kuromoji-ipadic-${KUROMOJI_JAR_VERSION}${KUROMOJI_JAR_SUFFIX}.jar kuromoji-ipadic-neologd-${KUROMOJI_JAR_VERSION}-${NEOLOGD_VERSION_DATE}${KUROMOJI_JAR_SUFFIX}.jar
+cp ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/target/kuromoji-ipadic-${KUROMOJI_JAR_VERSION}${KUROMOJI_JAR_SUFFIX}.jar ${JAR_FILE_OUTPUT_DIRECTORY}/kuromoji-ipadic-neologd-${KUROMOJI_JAR_VERSION}-${NEOLOGD_VERSION_DATE}${KUROMOJI_JAR_SUFFIX}.jar
 
-ls -l kuromoji-ipadic*
+ls -l ${JAR_FILE_OUTPUT_DIRECTORY}/kuromoji-ipadic*
 
 logging main INFO 'END.'
 
