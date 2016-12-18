@@ -85,7 +85,7 @@ That were built JAR file will be created in **current directory** where you run 
 ```shellscript
 $ ls -l
 total 60212
--rw-rw-r-- 1 xyz xyz 48023660 May 29 15:31 lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526-SNAPSHOT.jar
+-rw-rw-r-- 1 xyz xyz 48023660 May 29 15:31 lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526.jar
 drwxrwxr-x 6 xyz xyz     4096 May 29 15:21 lucene-solr
 drwxrwxr-x 8 xyz xyz     4096 May 23  2015 mecab
 drwxr-xr-x 8 xyz xyz     4096 May 23  2015 mecab-0.996
@@ -93,17 +93,17 @@ drwxr-xr-x 8 xyz xyz     4096 May 23  2015 mecab-0.996
 drwxrwxr-x 9 xyz xyz     4096 May 29 15:19 mecab-ipadic-neologd
 ```
 
-In this case, it is "lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526-SNAPSHOT.jar" JAR file that was built.
+In this case, it is "lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526.jar" JAR file that was built.
 
 ### JAR file naming
 Naming of a JAR file of a build result is as follows.
 
 ```
 naming:
-lucene-analyzers-kuromoji-ipadic-neologd-[Lucene Version]-[mecab-ipadic-NEologd dictionary date]-SNAPSHOT.jar
+lucene-analyzers-kuromoji-ipadic-neologd-[Lucene Version]-[mecab-ipadic-NEologd dictionary date].jar
 
 example:
-lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526-SNAPSHOT.jar
+lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526.jar
 ```
 
 ### Build options

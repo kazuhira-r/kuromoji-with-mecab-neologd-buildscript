@@ -248,6 +248,9 @@ fi
 
 cd ${WORK_DIR}
 
+KUROMOJI_SNAPSHOT_JAR_FILENAME=`ls -1 ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji/lucene-analyzers-kuromoji*`
+KUROMOJI_JAR_FILENAME=`echo ${KUROMOJI_SNAPSHOT_JAR_FILENAME} | perl -wp -e 's!(.+)-SNAPSHOT(.+)!$1$2!'`
+mv ${KUROMOJI_SNAPSHOT_JAR_FILENAME} ${KUROMOJI_JAR_FILENAME}
 cp ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji/lucene-analyzers-kuromoji* ./.
 
 ls -l lucene-analyzers-kuromoji*
