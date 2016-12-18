@@ -94,7 +94,7 @@ drwxrwxr-x 9 xyz xyz     4096 Dec 18 17:59 mecab-ipadic-neologd
 
 ```
 
-In this case, it is "lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526.jar" JAR file that was built.
+In this case, it is "lucene-analyzers-kuromoji-ipadic-neologd-6.3.0-20161215.jar" JAR file that was built.
 
 ### JAR file naming
 Naming of a JAR file of a build result is as follows.
@@ -104,7 +104,7 @@ naming:
 lucene-analyzers-kuromoji-ipadic-neologd-[Lucene Version]-[mecab-ipadic-NEologd dictionary date].jar
 
 example:
-lucene-analyzers-kuromoji-ipadic-neologd-6.0.1-20160526.jar
+lucene-analyzers-kuromoji-ipadic-neologd-6.3.0-20161215.jar
 ```
 
 ### Build options
