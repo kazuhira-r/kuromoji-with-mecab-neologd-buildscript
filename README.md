@@ -14,7 +14,7 @@ Kuromoji is morphological analyzer which is included in Apache Lucene.
 *Note: These build scripts are supporting is only IPA dictionary.*
 
 ## Supported versions
-Lucene Kuromoji: 4.x, 5.x, 6.x
+Lucene Kuromoji: 4.x, 5.x, 6.x, 7.x
 
 Atilika Kuromoji: 0.9.0
 
