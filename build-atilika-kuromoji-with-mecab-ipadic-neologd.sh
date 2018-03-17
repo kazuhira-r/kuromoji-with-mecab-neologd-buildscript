@@ -24,7 +24,11 @@ usage() {
 Usage: ${SCRIPT_NAME} [options...]
   options:
     -N ... mecab-ipadic-NEologd Tag, use git checkout argument. (default: ${DEFAULT_MECAB_IPADIC_NEOLOGD_TAG})
+
+    ***deprecated*** 
     -T ... install adjective ext. if you want enable, specified 1. (default: ${DEFAULT_INSTALL_ADJECTIVE_EXT})
+    ***deprecated*** 
+
     -K ... Kuromoji Version Tag, use git checkout argument. (default: ${DEFAULT_KUROMOJI_VERSION_TAG}) 
     -M ... Kuromoji build max heapsize. (default: ${DEFAULT_KUROMOJI_BUILD_MAX_HEAPSIZE})
     -o ... generated Kuromoji JAR file output directory. (default: ${DEFAULT_JAR_FILE_OUTPUT_DIRECTORY} (current directory))
@@ -71,7 +75,9 @@ do
         N)
             MECAB_IPADIC_NEOLOGD_TAG=${OPTARG};;
         T)
-            INSTALL_ADJECTIVE_EXT=${OPTARG};;
+            INSTALL_ADJECTIVE_EXT=${OPTARG}
+            logging main WARN "*** -T is deprecated option ***"
+            ;;
         M)
             KUROMOJI_BUILD_MAX_HEAPSIZE=${OPTARG};;
         o)
@@ -98,7 +104,11 @@ applied build options.
 
 [Auto Install MeCab Version                  ]    ... ${MECAB_VERSION}
 [mecab-ipadic-NEologd Tag                (-N)]    ... ${MECAB_IPADIC_NEOLOGD_TAG}
+
+*** deprecated option *** 
 [install adjective ext                   (-T)]    ... ${INSTALL_ADJECTIVE_EXT}
+*** deprecated option *** 
+
 [Kuromoji Version Tag                    (-K)]    ... ${KUROMOJI_VERSION_TAG}
 [Kuromoji build Max Heapsize             (-M)]    ... ${KUROMOJI_BUILD_MAX_HEAPSIZE}
 [Kuromoji JAR File Output Directory Name (-o)]    ... ${JAR_FILE_OUTPUT_DIRECTORY}
