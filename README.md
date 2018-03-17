@@ -197,7 +197,7 @@ This script, perform the following processing.
 * Copy JAR file to specified directory (default: current directory)
 
 ## LICENSE
-Copyright &copy; 2015, 2016 kazuhira-r
+Copyright &copy; 2015, 2016, 2017, 2018 kazuhira-r
 
 
 Licensed under the [Apache License, Version 2.0][Apache]
