@@ -227,15 +227,15 @@ if [ "${REDEFINED_KUROMOJI_PACKAGE}" != "${DEFAULT_KUROMOJI_PACKAGE}" ]; then
     test -d ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/src/main/java/${NEW_SRC_DIR} && rm -rf ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/src/main/java/${NEW_SRC_DIR}
     mkdir -p ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/src/main/java/${NEW_SRC_DIR}
     find ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/src/main/java/${ORIGINAL_SRC_DIR} -mindepth 1 -maxdepth 1 | xargs -I{} mv {} ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/src/main/java/${NEW_SRC_DIR}
-    find ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/src/main/java/${NEW_SRC_DIR} -type f | xargs perl -wp -i -e "s!${DEFAULT_KUROMOJI_PACKAGE}!${REDEFINED_KUROMOJI_PACKAGE}!g"
+    find ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/src/main/java/${NEW_SRC_DIR} -type f | xargs perl -wp -i -e "s!${DEFAULT_KUROMOJI_PACKAGE//./\\.}!${REDEFINED_KUROMOJI_PACKAGE}!g"
 
     test -d ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/src/test/java/${NEW_SRC_DIR} && rm -rf ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/src/test/java/${NEW_SRC_DIR}
     mkdir -p ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/src/test/java/${NEW_SRC_DIR}
     find ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/src/test/java/${ORIGINAL_SRC_DIR} -mindepth 1 -maxdepth 1 | xargs -I{} mv {} ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/src/test/java/${NEW_SRC_DIR}
-    find ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/src/test/java/${NEW_SRC_DIR} -type f | xargs perl -wp -i -e "s!${DEFAULT_KUROMOJI_PACKAGE}!${REDEFINED_KUROMOJI_PACKAGE}!g"
+    find ${KUROMOJI_SRC_DIR}/kuromoji-ipadic/src/test/java/${NEW_SRC_DIR} -type f | xargs perl -wp -i -e "s!${DEFAULT_KUROMOJI_PACKAGE//./\\.}!${REDEFINED_KUROMOJI_PACKAGE}!g"
 
     perl -wp -i -e "s!${ORIGINAL_SRC_DIR}!${NEW_SRC_DIR}!g" kuromoji-ipadic/pom.xml
-    perl -wp -i -e "s!${DEFAULT_KUROMOJI_PACKAGE}!${REDEFINED_KUROMOJI_PACKAGE}!g" kuromoji-ipadic/pom.xml
+    perl -wp -i -e "s!${DEFAULT_KUROMOJI_PACKAGE//./\\.}!${REDEFINED_KUROMOJI_PACKAGE}!g" kuromoji-ipadic/pom.xml
 fi
 
 mvn -pl kuromoji-ipadic -am package \
