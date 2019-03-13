@@ -22,7 +22,7 @@ Atilika Kuromoji: 0.9.0
 ### Requirements
 To use this script, you must install the following software.
 
-* [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* JDK (Oracle JDK / OpenJDK)
 * [Apache Ant](http://ant.apache.org/) (for Lucene Kuromoji)
 * [Apache Maven](https://maven.apache.org/) (for Atilika Kuromoji)
 * Git
